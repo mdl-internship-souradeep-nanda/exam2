@@ -1,5 +1,8 @@
+const Wreck = require('wreck');
+const externals = require('./externals');
+
 function handle() {
-  return 'OK';
+  return Wreck.get(externals.allBooks);
 }
 
 module.exports.handle = handle;
@@ -7,8 +10,9 @@ module.exports.handle = handle;
 module.exports.route = {
   path: '/combine',
   method: 'GET',
-  handler: (req, res) => {
-    const responseString = handle();
-    res(responseString);
+  handler: async (req, res) => {
+    handle().then((awsRes) => {
+      res(awsRes.payload);
+    });
   },
 };
