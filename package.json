@@ -1,0 +1,26 @@
+{
+  "name": "exam2",
+  "version": "0.0.0",
+  "description": "Placeholder Description",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdl-internship-souradeep-nanda/exam2.git"
+  },
+  "author": "Souradeep Nanda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdl-internship-souradeep-nanda/exam2/issues"
+  },
+  "homepage": "https://github.com/mdl-internship-souradeep-nanda/exam2#readme",
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "jest": "^22.1.4"
+  },
+  "dependencies": {
+    "hapi": "^16.6.2"
+  }
+}
