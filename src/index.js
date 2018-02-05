@@ -1,6 +1,7 @@
 const Hapi = require('hapi');
 
 const combineRoute = require('./routes/combine').route;
+const combineAndSaveRoute = require('./routes/combineAndSave').route;
 
 const server = new Hapi.Server();
 const port = 8080;
@@ -12,6 +13,9 @@ server.connection({
 
 // Add the combine route to all routes
 server.route(combineRoute);
+
+// Add the combine and save route to all routes
+server.route(combineAndSaveRoute);
 
 // If testing, dont start server here
 if (!module.parent) {

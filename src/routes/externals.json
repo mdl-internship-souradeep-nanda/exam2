@@ -1,4 +1,5 @@
 {
   "allBooks": "https://5gj1qvkc5h.execute-api.us-east-1.amazonaws.com/dev/allBooks",
-  "findBook": "https://5gj1qvkc5h.execute-api.us-east-1.amazonaws.com/dev/findBookById/"
+  "findBook": "https://5gj1qvkc5h.execute-api.us-east-1.amazonaws.com/dev/findBookById/",
+  "combine": "http://localhost:8080/combine"
 }

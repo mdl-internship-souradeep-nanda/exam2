@@ -10,4 +10,13 @@ describe('200 response should be given by API endpoint', () => {
       expect(res.statusCode).toBe(200);
     });
   });
+  it('/combineAndSave', () => {
+    const req = {
+      method: 'GET',
+      url: '127.0.0.1:8080/combineAndSave',
+    };
+    server.inject(req, (res) => {
+      expect(res.statusCode).toBe(200);
+    });
+  });
 });
