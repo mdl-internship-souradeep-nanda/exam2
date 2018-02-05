@@ -1,31 +1,43 @@
 const wreck = require('wreck');
 const externals = require('./externals');
 
+/**
+ * Combines all books with their corresponding ratings
+ * into a single JSON object
+ * @param {Object} allBooks
+ * @return {Promise}
+ */
 function combine(allBooks) {
-  const booksWithRatings = JSON.parse(allBooks.toString()).books;
+  // Parse the response into a JSON object
+  const booksWithRatings = JSON.parse(allBooks.payload.toString()).books;
 
-  booksWithRatings.map((book) => {
+  // Get the rating for each book
+  return booksWithRatings.map((book) => {
     const bookCopy = book;
-    bookCopy.rating = 5;
-    return bookCopy;
+
+    // HTTP request string for the server
+    const requestString = `${externals.findBook}${book.id}`;
+
+    // When the server replies, modify the book object
+    // and return it
+    return wreck.get(requestString).then((res) => {
+      const ratingObj = JSON.parse(res.payload.toString());
+      bookCopy.rating = ratingObj.rating;
+      return bookCopy;
+    });
   });
-
-  return booksWithRatings;
 }
 
+/**
+ * Returns a promise which has an object containing
+ * all books with their ratings
+ * @return {Object}
+ */
 function handle() {
-  return wreck.get(externals.allBooks)
-    .then(res => res.payload)
-    .then(allBooks => combine(allBooks));
+  return wreck.get(externals.allBooks) // Get all books from server
+    .then(allBooks => combine(allBooks)) // Combine ratings
+    .then(allPromises => Promise.all(allPromises)); // Wait for resolution
 }
-/*
-(allBooks) => {
-  allBooks.map(book => wreck.get(`${externals.findBook}/${book.id}`)
-    .then((ratingObject) => {
-      book.rating = ratingObject.rating;
-    }));
-};
-*/
 module.exports.handle = handle;
 
 module.exports.route = {

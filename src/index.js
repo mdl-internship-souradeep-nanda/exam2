@@ -10,12 +10,16 @@ server.connection({
   port,
 });
 
+// Add the combine route to all routes
 server.route(combineRoute);
 
+// If testing, dont start server here
 if (!module.parent) {
+  // Start server
   server.start(() => {
     console.log('Server running at:', server.info.uri);
   });
 }
 
+// Export server for testing
 module.exports = server;
