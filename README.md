@@ -114,6 +114,6 @@ Sample response for first API to be created:
 
 ### books table
 
-| id | author | name | ranking | like |
+| id | author | name | ranking | likes |
 |----|--------|-----|----------|-------|
 | INTEGER:PRIMARY KEY | STRING | STRING | FLOAT | INTEGER |

@@ -4,8 +4,9 @@
   "description": "Placeholder Description",
   "main": "src/index.js",
   "scripts": {
-    "start": "node ./src/index.js",
-    "test": "jest"
+    "custom_init": "NODE_ENV=test sequelize db:create && NODE_ENV=development sequelize db:create && node_modules/.bin/sequelize model:generate --name books --attributes id:integer,author:string,name:string,ranking:float,likes:integer && node_modules/.bin/sequelize db:migrate",
+    "start": "sequelize db:migrate && node ./src/index.js",
+    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && jest"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,10 @@
     "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "jest": "^22.1.4"
+    "jest": "^22.1.4",
+    "pg": "^7.4.1",
+    "sequelize": "^4.32.6",
+    "sequelize-cli": "^3.2.0"
   },
   "dependencies": {
     "hapi": "^16.6.2",
