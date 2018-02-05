@@ -4,8 +4,16 @@ describe('The handler should', () => {
   it('return a json object', (done) => {
     const promise = combineHandle();
     promise.then((res) => {
-      const jsonObject = JSON.parse(res.payload.toString());
-      expect(jsonObject.books.length > 0).toBeTruthy();
+      const allBooks = JSON.parse(res.payload.toString()).books;
+      expect(allBooks.length > 0).toBeTruthy();
+      done();
+    });
+  });
+  it('return a json object with rating property', (done) => {
+    const promise = combineHandle();
+    promise.then((res) => {
+      const allBooks = JSON.parse(res.payload.toString()).books;
+      expect(allBooks.length > 0).toBeTruthy();
       done();
     });
   });
