@@ -1,5 +1,3 @@
-
-
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('books', {
     id: {
@@ -7,6 +5,7 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
+      unique: true,
     },
     author: {
       type: Sequelize.STRING,
@@ -15,7 +14,7 @@ module.exports = {
       type: Sequelize.STRING,
     },
     rating: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.STRING,
     },
     likes: {
       type: Sequelize.INTEGER,

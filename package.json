@@ -4,7 +4,7 @@
   "description": "Placeholder Description",
   "main": "src/index.js",
   "scripts": {
-    "custom_init": "NODE_ENV=test sequelize db:create && NODE_ENV=development sequelize db:create && node_modules/.bin/sequelize model:generate --name books --attributes id:integer,author:string,name:string,ranking:float,likes:integer && node_modules/.bin/sequelize db:migrate",
+    "custom_init": "NODE_ENV=test sequelize db:create && NODE_ENV=development sequelize db:create && node_modules/.bin/sequelize db:migrate",
     "start": "sequelize db:migrate && node ./src/index.js",
     "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && jest"
   },
