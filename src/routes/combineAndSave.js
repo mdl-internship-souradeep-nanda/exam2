@@ -43,7 +43,7 @@ module.exports.route = {
   method: 'GET',
   handler: (req, res) => {
     handle().then((myObj) => {
-      console.log(myObj);
+      // console.log(myObj);
       const resposeObject = {
         statusCode: myObj,
       };
