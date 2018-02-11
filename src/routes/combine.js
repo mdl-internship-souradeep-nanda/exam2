@@ -29,6 +29,20 @@ function combine(allBooks) {
 }
 
 /**
+ * Groups all books by their authors
+ * @param {Object} allBooks
+ */
+function groupByAuthor(allBooks) {
+  const groupedBooks = allBooks.reduce((acc, a) => {
+    const r = acc;
+    r[a.Author] = r[a.Author] || [];
+    r[a.Author].push(a);
+    return r;
+  }, Object.create(null));
+  return groupedBooks;
+}
+
+/**
  * Returns a promise which has an object containing
  * all books with their ratings
  * @return {Object}
@@ -36,7 +50,8 @@ function combine(allBooks) {
 function handle() {
   return wreck.get(externals.allBooks) // Get all books from server
     .then(allBooks => combine(allBooks)) // Combine ratings
-    .then(allPromises => Promise.all(allPromises)); // Wait for resolution
+    .then(allPromises => Promise.all(allPromises))
+    .then(allBooks => groupByAuthor(allBooks)); // Wait for resolution
 }
 module.exports.handle = handle;
 
