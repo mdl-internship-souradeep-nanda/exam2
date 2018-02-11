@@ -54,6 +54,8 @@ function handle() {
     .then(allBooks => groupByAuthor(allBooks)); // Wait for resolution
 }
 module.exports.handle = handle;
+module.exports.combine = combine;
+module.exports.group = groupByAuthor;
 
 module.exports.route = {
   path: '/combine',
