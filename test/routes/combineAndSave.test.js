@@ -19,18 +19,15 @@ describe('The handler should', () => {
       done();
     });
   });
-  it('return 201, when entries are created', (done) => {
-    request('http://localhost:8080/combineAndSave', (error, response, body) => {
-      const myObj = JSON.parse(body);
-      expect(myObj.statusCode).toBe(201);
-      done();
+  it('return 201 and 200 when entries are not created and not created', (done) => {
+    request('http://localhost:8080/combineAndSave', (error1, response1, body1) => {
+      const myObj1 = JSON.parse(body1);
+      expect(myObj1.statusCode).toBe(201);
+      request('http://localhost:8080/combineAndSave', (error2, response2, body2) => {
+        const myObj2 = JSON.parse(body2);
+        expect(myObj2.statusCode).toBe(200);
+        done();
+      });
     });
-  });
-  it('return 200, when entries are not created', (done) => {
-    request('http://localhost:8080/combineAndSave', (error, response, body) => {
-      const myObj = JSON.parse(body);
-      expect(myObj.statusCode).toBe(200);
-      done();
-    });
-  });
+  }, 20000);
 });

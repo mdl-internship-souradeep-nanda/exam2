@@ -1,5 +1,6 @@
 const wreck = require('wreck');
 const externals = require('./externals');
+const { combine } = require('./combine');
 const models = require('../../models');
 
 /**
@@ -27,14 +28,16 @@ function convertKeysToLower(obj) {
  * @return {Object}
  */
 function handle() {
-  return wreck.get(externals.combine).then((res) => {
-    let objArray = JSON.parse(res.payload);
-    objArray = objArray.map(obj => convertKeysToLower(obj));
-
-    return models.books.bulkCreate(objArray)
-      .then(() => 201)
-      .catch(() => 200);
-  });
+  return wreck.get(externals.allBooks)
+    .then(allBooks => combine(allBooks))
+    .then(allPromises => Promise.all(allPromises))
+    .then((combinedBookArg) => {
+      const combinedBooks = combinedBookArg
+        .map(obj => convertKeysToLower(obj));
+      return models.books.bulkCreate(combinedBooks)
+        .then(() => 201)
+        .catch(() => 200);
+    });
 }
 module.exports.handle = handle;
 
@@ -43,7 +46,6 @@ module.exports.route = {
   method: 'GET',
   handler: (req, res) => {
     handle().then((myObj) => {
-      // console.log(myObj);
       const resposeObject = {
         statusCode: myObj,
       };
