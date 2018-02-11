@@ -1,9 +1,6 @@
 const Hapi = require('hapi');
 
-const combineRoute = require('./routes/combine').route;
-const combineAndSaveRoute = require('./routes/combineAndSave').route;
-const likeRoute = require('./routes/like').route;
-const unlikeRoute = require('./routes/unlike').route;
+const routes = require('./routes');
 
 const server = new Hapi.Server();
 const port = 8080;
@@ -13,17 +10,8 @@ server.connection({
   port,
 });
 
-// Add the combine route to all routes
-server.route(combineRoute);
-
-// Add the combine and save route to all routes
-server.route(combineAndSaveRoute);
-
-// Add the like route to all routes
-server.route(likeRoute);
-
-// Add the unlike route to all routes
-server.route(unlikeRoute);
+// Add all the routes from ./routes
+server.route(routes);
 
 // If testing, dont start server here
 if (!module.parent) {
