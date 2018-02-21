@@ -8,6 +8,7 @@ const port = 8080;
 server.connection({
   host: 'localhost',
   port,
+  routes: { cors: true },
 });
 
 // Add all the routes from ./routes
